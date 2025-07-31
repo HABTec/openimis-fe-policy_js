@@ -366,7 +366,7 @@ class PolicyMasterPanel extends FormPanel {
               <Grid item xs={3} className={classes.item}>
                 <PublishedComponent
                   pubRef="policy.PaymentTypePicker"
-                  value={!!edited && (edited.membershipType? product?.membershipTypes.filter(x => {console.log(x.id , edited.membershipType.id , x.id == edited.membershipType.id ,x); return x.id == edited.membershipType.id}) :  edited.membershipTypeId)}
+                  value={!!edited && (edited.membershipType? product?.membershipTypes.filter(x => {return x.id == edited.membershipType.id}) :  edited.membershipTypeId)}
                   module="policy"
                   readOnly={readOnly}
                   withPlaceholder={true}
@@ -522,7 +522,7 @@ const mapStateToProps = (state) => ({
   confirmed: state.core.confirmed,
   submittingMutation: state.policy.submittingMutation,
   mutation: state.policy.mutation,
-product: !!state.core && !!state.core.userProduct ? state.core.userProduct[0] : null,});
+product: !!state.core && !!state.core.userProduct ? state.core.userProduct[0] : null});
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
