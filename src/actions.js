@@ -29,8 +29,8 @@ const POLICY_BY_FAMILY_OR_INSUREE_PROJECTION = [
   "ceiling",
   "ceilingInPatient",
   "ceilingOutPatient",
-  "membershipType{id}"
 ];
+// "membershipType{id}"
 
 const FAMILY_FULL_PROJECTION = (mm) => [
   "id",
