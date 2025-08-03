@@ -29,7 +29,7 @@ const POLICY_BY_FAMILY_OR_INSUREE_PROJECTION = [
   "ceiling",
   "ceilingInPatient",
   "ceilingOutPatient",
-  "membershipType"
+  "membershipType{id}"
 ];
 
 const FAMILY_FULL_PROJECTION = (mm) => [
@@ -136,7 +136,7 @@ export function fetchPolicySummaries(mm, filters) {
     "sumPremiums",
     "validityFrom",
     "validityTo",
-    "membershipType"
+    "membershipType{id}"
   ];
   const payload = formatPageQueryWithCount("policies", filters, projections);
   return graphql(payload, "POLICY_POLICIES");
@@ -163,7 +163,7 @@ export function fetchPolicyFull(mm, policy_uuid) {
     "claimDedRems{edges { node {dedG dedIp dedOp remG remIp remOp} } }",
     "validityFrom",
     "validityTo",
-    "membershipType",
+    "membershipType{id}",
   ];
   const payload = formatPageQuery(
     "policies",
@@ -213,9 +213,6 @@ function formatPolicyGQL(mm, policy) {
   officerId: ${decodeId(policy.officer.id)}
   membershipTypeId: ${decodeId(policy.membershipTypeId.id)}
   `;
-  // startDate: "${policy.startDate}"
-  // expiryDate: "${policy.expiryDate}"
-  // value: "${_.round(policy.value, 2).toFixed(2)}"
 }
 
 export function createPolicy(mm, policy, clientMutationLabel) {
