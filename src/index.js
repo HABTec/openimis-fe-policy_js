@@ -11,6 +11,8 @@ import InsureeEligibilitySummary from "./components/InsureeEligibilitySummary";
 import InsureeEligibilityEnquiry from "./components/InsureeEligibilityEnquiry";
 import InsureePolicyEligibilitySummary from "./components/InsureePolicyEligibilitySummary";
 import messages_en from "./translations/en.json";
+import messages_am from "./translations/am.json";
+import messages_om from "./translations/om.json";
 import { FormattedMessage, decodeId } from "@openimis/fe-core";
 import { reducer } from "./reducer";
 import { RIGHT_POLICY } from "./constants";
@@ -22,7 +24,7 @@ const ROUTE_POLICY_POLICIES = "policy/policies";
 const ROUTE_POLICY_POLICY = "policy/policy";
 
 const DEFAULT_CONFIG = {
-  "translations": [{ key: 'en', messages: messages_en }],
+  "translations": [{ key: 'en', messages: messages_en },{ key: 'am', messages: messages_am },{ key: 'om', messages: messages_om }],
   "reducers": [{ key: 'policy', reducer }],
   "reports": [
     {
