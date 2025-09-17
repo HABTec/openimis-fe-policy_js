@@ -50,13 +50,13 @@ const PaymentTypePicker = (props) => {
       options={types ?? []}
       value={value}
       getOptionLabel={(option) =>
-        `${option.levelType} -  Level ${option.levelIndex} `
+        `${option.levelType} -  Level ${option.levelIndex} - ${option.price} Birr `
       }
       onChange={(option) =>
         onChange(
           option,
           option
-            ? `${option.levelType} -  Level ${option.levelIndex} `
+            ? `${option.levelType} -  Level ${option.levelIndex} - ${option.price} Birr `
             : null
         )
       }

@@ -210,8 +210,8 @@ function formatPolicyGQL(mm, policy) {
   enrollDate: "${policy.enrollDate}"
   productId: ${decodeId(policy.product.id)}
   familyId: ${decodeId(policy.family.id)}
-  officerId: ${decodeId(policy.officer.id)}
   membershipTypeId: ${decodeId(policy.membershipTypeId.id)}
+  officerId: ${policy.officerId}
   `;
 }
 
