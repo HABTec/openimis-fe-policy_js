@@ -244,14 +244,14 @@ class PolicyForm extends Component {
   }
 
   canSave = () => {
+    return true;
     if (!this.state.policy.family) return false;
     if (!this.state.policy.product) return false;
-    if (!this.state.policy.officer) return false;
     if (!this.state.policy.membershipTypeId) return false;
-    return true;
   };
 
   _save = (policy) => {
+    policy.officerId = this.props.officerId
     this.setState(
       { lockNew: !policy.uuid }, // avoid duplicates
       (e) => this.props.save(policy),
@@ -355,6 +355,7 @@ const mapStateToProps = (state) => ({
   family: state.insuree.family,
   submittingMutation: state.policy.submittingMutation,
   mutation: state.policy.mutation,
+  officerId: !!state.core && !!state.core.user && !!state.core.user.i_user && !!state.core.user.i_user.id && state.core.user.i_user.id
 });
 
 export default injectIntl(

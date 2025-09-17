@@ -67,6 +67,18 @@ class PolicyMasterPanel extends FormPanel {
     );
   }
 
+  state = {
+    membershipTypes: [],
+  };
+
+  __onProductChange = (product) => {
+    this.setState({
+      membershipTypes: product?.membershipTypes || [],
+    });
+    this.updateAttribute("product", product);
+  };
+
+
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (!prevProps.confirmed && this.props.confirmed) {
       this.state.confirmedAction();
@@ -85,6 +97,7 @@ class PolicyMasterPanel extends FormPanel {
           value: null,
         })
       : this.updateAttribute("product", product);
+      this.__onProductChange(product)
   };
 
   renewPolicy = () =>
@@ -332,46 +345,16 @@ class PolicyMasterPanel extends FormPanel {
                   enrollmentDate={edited?.enrollDate ?? null}
                 />
               </Grid>
-              <Grid item xs={3} className={classes.item}>
-                <PublishedComponent
-                  pubRef="policy.PolicyOfficerPicker"
-                  value={!!edited && edited.officer}
-                  module="policy"
-                  readOnly={readOnly}
-                  withPlaceholder={true}
-                  withLabel={true}
-                  label={formatMessage(
-                    intl,
-                    "policy",
-                    "PolicyOfficerPicker.label"
-                  )}
-                  placeholder={formatMessage(
-                    intl,
-                    "policy",
-                    "PolicyOfficerPicker.placeholder"
-                  )}
-                  withNull={true}
-                  nullLabel={formatMessage(
-                    intl,
-                    "policy",
-                    "PolicyOfficer.none"
-                  )}
-                  onChange={(v) => this.updateAttribute("officer", v)}
-                  required={true}
-                  villageId={
-                    !!edited.family ? decodeId(edited.family?.location?.id) : 0
-                  }
-                />
-              </Grid>
+             
               <Grid item xs={3} className={classes.item}>
                 <PublishedComponent
                   pubRef="policy.PaymentTypePicker"
-                  value={!!edited && (edited.membershipType? product?.membershipTypes.filter(x => {return x.id == edited.membershipType.id}) :  edited.membershipTypeId)}
+                  value={edited.product?.membershipTypes.filter(pt => pt.id == edited?.membershipType?.id)[0] ??  edited?.membershipTypes }
                   module="policy"
                   readOnly={readOnly}
                   withPlaceholder={true}
                   withLabel={true}
-                  types={product?.membershipTypes}
+                  types={edited.product?.membershipTypes ?? this.state.membershipTypes}
                   label={formatMessage(
                     intl,
                     "policy",
