@@ -244,10 +244,10 @@ class PolicyForm extends Component {
   }
 
   canSave = () => {
-    return true;
     if (!this.state.policy.family) return false;
     if (!this.state.policy.product) return false;
     if (!this.state.policy.membershipTypeId) return false;
+    return true
   };
 
   _save = (policy) => {
