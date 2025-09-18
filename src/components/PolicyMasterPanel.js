@@ -388,29 +388,7 @@ class PolicyMasterPanel extends FormPanel {
                   onChange={(v) => this.updateAttribute("status", v)}
                 />
               </Grid>
-              {!edited_id && (
-                <Grid xs={12}>
-                  <Grid item xs={3} className={classes.item}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          color="primary"
-                          checked={edited?.isPaid}
-                          onChange={(e) =>
-                            this.updateAttribute("isPaid", e.target.checked)
-                          }
-                        />
-                      }
-                      disabled={readOnly}
-                      label={formatMessage(
-                        intl,
-                        "policy",
-                        "Policy.payInOneInstallment"
-                      )}
-                    />
-                  </Grid>
-                </Grid>
-              )}
+          
               {edited?.isPaid && (
                 <>
                   <Grid item xs={12} className={classes.item}>
