@@ -18,6 +18,7 @@ import {
   toISODate,
   withHistory,
   withModulesManager,
+  convertToEthiopianDate
 } from "@openimis/fe-core";
 import PolicyMasterPanel from "./PolicyMasterPanel";
 import { fetchPolicyFull, fetchPolicyValues, fetchFamily } from "../actions";
@@ -264,7 +265,7 @@ class PolicyForm extends Component {
       formatMessage(this.props.intl, "policy", "policy.dispatchExpiryDate.title"),
       formatMessageWithValues(this.props.intl, "policy", "dispatchExpiryDate.message",
       {
-        label: policy.expiryDate,
+        label:convertToEthiopianDate(policy.expiryDate),
       })
       )
 
