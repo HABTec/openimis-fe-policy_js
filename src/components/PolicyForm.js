@@ -251,15 +251,37 @@ class PolicyForm extends Component {
     return true
   };
 
+  isCurrentDateInRange() {
+     const {
+     product
+     } = this.props;
+       const currentDate = new Date();
+       let startDateStr = product?.enrolmentPeriodStartDate
+       let endDateStr = product?.enrolmentPeriodEndDate
+ 
+ 
+       const startDate = new Date(startDateStr);
+       const endDate = new Date(endDateStr);
+ 
+      if (!startDateStr || isNaN(Date.parse(startDateStr))) {
+        return true;
+      }
+      if (!endDateStr || isNaN(Date.parse(endDateStr))) {
+        return true;
+      }
+ 
+       let result = currentDate >= startDate && currentDate <= endDate;
+       return result;
+     }
   _save = (policy) => {
     policy.officerId = this.props.officerId
+    if (!this.isCurrentDateInRange() ) return false;
     this.setState(
       { lockNew: !policy.uuid }, // avoid duplicates
       (e) => this.props.save(policy),
     );
     this.dispatchExpiryDate(policy)
   };
-
   dispatchExpiryDate = (policy) =>{
     this.props.coreAlert(
       formatMessage(this.props.intl, "policy", "policy.dispatchExpiryDate.title"),
@@ -280,6 +302,7 @@ class PolicyForm extends Component {
       errorPolicy,
       readOnly,
       renew,
+      product
     } = this.props;
     const { policy, lockNew } = this.state;
     if (!rights.includes(RIGHT_POLICY)) return null;
@@ -333,6 +356,11 @@ class PolicyForm extends Component {
             Panels={[PolicyMasterPanel]}
             onEditedChanged={this.onEditedChanged}
             forcedDirty={!ro && (!!this.props.renew || !policy_uuid)}
+            canRegister={{
+                allowed: this.isCurrentDateInRange(),
+                startDate: product?.enrolmentPeriodStartDate,
+                endDate: product?.enrolmentPeriodEndDate,
+              }}
           />
         )}
       </Fragment>
@@ -346,6 +374,7 @@ const mapStateToProps = (state) => ({
       ? state.core.user.i_user.rights
       : [],
   fetchingPolicy: state.policy.fetchingPolicy,
+  product: !!state.core && !!state.core.userProduct ? state.core.userProduct[0] : null,
   errorPolicy: state.policy.errorPolicy,
   fetchedPolicy: state.policy.fetchedPolicy,
   policy: state.policy.policy,
