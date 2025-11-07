@@ -41,7 +41,7 @@ import {
   canRenewPolicy,
 } from "../utils/utils";
 import { deletePolicy, suspendPolicy } from "../actions";
-
+import Alert from '@material-ui/lab/Alert';
 const styles = (theme) => ({
   paper: theme.paper.paper,
   tableTitle: theme.table.title,
@@ -189,7 +189,8 @@ class PolicyMasterPanel extends FormPanel {
       fetchingPolicyValues,
       errorPolicyValues,
       title = "Policy.details.title",
-      product
+      product,
+      canRegister
     } = this.props;
 
     let actions = [];
@@ -455,6 +456,19 @@ class PolicyMasterPanel extends FormPanel {
                   </Grid>
                 </>
               )}
+               <Grid item xs={12} className={classes.item}>
+                              {canRegister ? !canRegister?.startDate && !canRegister?.endDate ? (
+                                <Alert variant="outlined" severity="warning">
+                                  Registration Start and end dates should be configured.
+                                </Alert>
+                              ) : (
+                                canRegister?.allowed ? "" : (
+                                  <Alert variant="outlined" severity="error">
+                                    The registration period has now ended. It was open from {canRegister?.startDate} to {canRegister?.endDate}.
+                                  </Alert>
+                                )
+                              ) : ""}
+                            </Grid>
               <Contributions
                 {...this.props}
                 updateAttribute={this.updateAttribute}
