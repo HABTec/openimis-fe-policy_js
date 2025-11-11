@@ -279,12 +279,13 @@ class PolicyMasterPanel extends FormPanel {
                         )
                       : undefined
                   }
-                  maxDate={new Date()}
+                  maxDate={new Date(new Date().setDate(new Date().getDate() - 1))}
                   readOnly={readOnly}
                   required={true}
                   onChange={(v) => this.updateAttribute("enrollDate", v)}
                 />
               </Grid>
+              
               <Grid item xs={3} className={classes.item}>
                 <PublishedComponent
                   pubRef="core.DatePicker"
