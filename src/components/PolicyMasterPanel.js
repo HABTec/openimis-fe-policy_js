@@ -340,7 +340,7 @@ class PolicyMasterPanel extends FormPanel {
                   onChange={this._onProductChange}
                   required={true}
                   locationId={
-                    !!edited.family
+                    !!edited.family?.location?.parent?.parent?.id
                       ? decodeId(edited.family?.location?.parent?.parent?.id)
                       : 0
                   }
