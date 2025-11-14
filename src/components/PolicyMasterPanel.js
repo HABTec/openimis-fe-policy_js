@@ -378,7 +378,7 @@ class PolicyMasterPanel extends FormPanel {
                   onChange={(v) => this.updateAttribute("membershipTypeId", v)}
                   required={true}
                   villageId={
-                    !!edited.family ? decodeId(edited.family?.location?.id) : 0
+                    !!edited.family && edited.family?.location?.id ?  decodeId(edited.family?.location?.id) : 0
                   }
                 />
               </Grid>
