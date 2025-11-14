@@ -248,34 +248,35 @@ class PolicyForm extends Component {
     if (!this.state.policy.family) return false;
     if (!this.state.policy.product) return false;
     if (!this.state.policy.membershipTypeId) return false;
+    if (!this.isCurrentDateInRange()) return false;
     return true
   };
 
   isCurrentDateInRange() {
-     const {
-     product
-     } = this.props;
-       const currentDate = new Date();
-       let startDateStr = product?.enrolmentPeriodStartDate
-       let endDateStr = product?.enrolmentPeriodEndDate
- 
- 
-       const startDate = new Date(startDateStr);
-       const endDate = new Date(endDateStr);
- 
-      if (!startDateStr || isNaN(Date.parse(startDateStr))) {
-        return true;
-      }
-      if (!endDateStr || isNaN(Date.parse(endDateStr))) {
-        return true;
-      }
- 
-       let result = currentDate >= startDate && currentDate <= endDate;
-       return result;
-     }
+    const {
+      product
+    } = this.props;
+    const currentDate = new Date();
+    let startDateStr = product?.enrolmentPeriodStartDate
+    let endDateStr = product?.enrolmentPeriodEndDate
+
+
+    const startDate = new Date(startDateStr);
+    const endDate = new Date(endDateStr);
+
+    if (!startDateStr || isNaN(Date.parse(startDateStr))) {
+      return true;
+    }
+    if (!endDateStr || isNaN(Date.parse(endDateStr))) {
+      return true;
+    }
+
+    let result = currentDate >= startDate && currentDate <= endDate;
+    return result;
+  }
   _save = (policy) => {
     policy.officerId = this.props.officerId
-    if (!this.isCurrentDateInRange() ) return false;
+    
     this.setState(
       { lockNew: !policy.uuid }, // avoid duplicates
       (e) => this.props.save(policy),
