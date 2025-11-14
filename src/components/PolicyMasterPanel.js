@@ -11,6 +11,7 @@ import {
   IconButton,
   FormControlLabel,
   Checkbox,
+  
 } from "@material-ui/core";
 import {
   Autorenew as RenewIcon,
@@ -33,6 +34,7 @@ import {
   decodeId,
   AmountInput,
   TextInput,
+  convertToEthiopianDate
 } from "@openimis/fe-core";
 import {
   policyLabel,
@@ -457,19 +459,19 @@ class PolicyMasterPanel extends FormPanel {
                   </Grid>
                 </>
               )}
-               <Grid item xs={12} className={classes.item}>
-                              {canRegister ? !canRegister?.startDate && !canRegister?.endDate ? (
-                                <Alert variant="outlined" severity="warning">
-                                  Registration Start and end dates should be configured.
-                                </Alert>
-                              ) : (
-                                canRegister?.allowed ? "" : (
-                                  <Alert variant="outlined" severity="error">
-                                    The registration period has now ended. It was open from {canRegister?.startDate} to {canRegister?.endDate}.
-                                  </Alert>
-                                )
-                              ) : ""}
-                            </Grid>
+              <Grid item xs={12} className={classes.item}>
+                {canRegister ? !canRegister?.startDate && !canRegister?.endDate ? (
+                  <Alert variant="outlined" severity="warning">
+                    Registration Start and end dates should be configured.
+                  </Alert>
+                ) : (
+                  canRegister?.allowed ? "" : (
+                    <Alert variant="outlined" severity="error">
+                      The registration period has now ended. It was open from {convertToEthiopianDate(canRegister?.startDate)} to {convertToEthiopianDate(canRegister?.endDate)}.
+                    </Alert>
+                  )
+                ) : ""}
+              </Grid>
               <Contributions
                 {...this.props}
                 updateAttribute={this.updateAttribute}
