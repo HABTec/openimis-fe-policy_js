@@ -461,12 +461,23 @@ class PolicyMasterPanel extends FormPanel {
               <Grid item xs={12} className={classes.item}>
                 {canRegister ? !canRegister?.startDate && !canRegister?.endDate ? (
                   <Alert variant="outlined" severity="warning">
-                    Registration Start and end dates should be configured.
+                    {formatMessage(
+                      this.props.intl,
+                      "insuree",
+                      "enrollmentPeriodNotConfigured"
+                    )}
                   </Alert>
                 ) : (
                   canRegister?.allowed ? "" : (
                     <Alert variant="outlined" severity="error">
-                      The registration period has now ended. It was open from {convertToEthiopianDate(canRegister?.startDate)} to {convertToEthiopianDate(canRegister?.endDate)}.
+                        {
+                          formatMessageWithValues(
+                            this.props.intl,
+                            "policy",
+                            "enrollmentPeriodExpired",
+                            { startDate: convertToEthiopianDate(canRegister?.startDate), endDate: convertToEthiopianDate(canRegister?.endDate) }
+                          )
+                        }
                     </Alert>
                   )
                 ) : ""}
