@@ -316,7 +316,7 @@ class PolicyMasterPanel extends FormPanel {
                   >
                     <PublishedComponent
                       pubRef="core.DatePicker"
-                      value={!!edited && edited?.product ? (date == "startDate" ? edited.product.coveragePeriodStartDate : edited.product.coveragePeriodEndDate) : null}
+                      value={!!edited && edited?.product ? (date === "startDate" ? edited.product.coveragePeriodStartDate : edited.product.coveragePeriodEndDate) : null}
                       module="policy"
                       label={`Policy.${date}`}
                       readOnly={true}
