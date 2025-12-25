@@ -21,6 +21,7 @@ const POLICY_BY_FAMILY_OR_INSUREE_PROJECTION = [
   "enrollDate",
   "effectiveDate",
   "status",
+  "expiryDate",
   "policyValue",
   "balance",
   "ded",
